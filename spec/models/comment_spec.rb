@@ -1,5 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe 'Database table' do
+    it{is_expected.to have_db_column :body}
+  end
 end

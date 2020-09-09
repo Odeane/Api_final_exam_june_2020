@@ -21,4 +21,24 @@ RSpec.describe 'POST /api/comments', typ: :request do
   it 'is expected to return a success mesage' do
     expect(response_json['message']).to eq 'Comment successfully created'
   end
+
+  describe 'non-registered users unsuseccefully comemnt' do
+    before do
+       post '/api/comments',
+       params:{
+       comment:{
+        body:' Sometimes ruby is great',
+        article_id: article.id
+      }
+    }
+    end
+
+    it 'should return a 401 status' do
+      expect(response).to have_http_status 401
+    end
+
+    it 'is expected to return error message' do
+      expect(response_json['errors'].first).to eq 'You need to sign in or sign up before continuing.'
+    end
+  end
 end
